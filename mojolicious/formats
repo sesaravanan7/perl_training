@@ -1,0 +1,35 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+get '/' => sub { 
+	shift->render('hello'); 
+};
+
+get '/:fname/:lname' => sub {
+	my $self = shift;
+	$self->stash(
+		fname => uc $self->param('fname'),
+		lname => uc $self->param('lname')
+	);
+	$self->render('hello');
+};
+
+app->start;
+__DATA__
+@@ hello.html.ep
+Hello <%= $fname %> <%= $lname %>!!
+
+@@ hello.txt.ep
+Hello <%= $fname %> <%= $lname %>!!
+
+@@ hello.json.ep
+{"Hello": "<%= $fname %> <%= $lname %>!!"}
+
+@@ hello.xml.ep
+<Hello ><%= $fname %> <%= $lname %>!!</Hello>
+
+
+
+
+
+
+

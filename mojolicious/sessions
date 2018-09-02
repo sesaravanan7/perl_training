@@ -1,0 +1,38 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+use Mojolicious::Sessions;
+
+app->secrets(['yuIB7m88wS07']);
+
+get '/' => sub { 
+	shift->render('hello'); 
+};
+
+get '/:fname/:lname' => sub {
+	my $self = shift;
+
+  #$self->session(expires =>  time + 300);
+
+  $self->session(lname => $self->param('lname'));
+  $self->cookie(lname => $self->param('lname'));
+	$self->stash(
+		fname => uc $self->param('fname'),
+		lname => uc $self->param('lname')
+	);
+	$self->render('capture');
+};
+
+app->start;
+__DATA__
+@@ hello.html.ep
+Welcome to Mojolicious!!!
+
+@@ capture.html.ep
+Hello <%= $fname %> <%= $lname %>!!
+%= session 'lname'
+
+
+
+
+
+

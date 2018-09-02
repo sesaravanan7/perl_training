@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+get '/' => sub { 
+	shift->render(text=>'Welcome to Mojolicious World!' );
+};
+
+app->start;

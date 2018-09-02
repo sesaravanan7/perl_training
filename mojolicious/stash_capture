@@ -1,0 +1,33 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+get '/' => sub { 
+	shift->render('hello'); 
+};
+
+get '/:fname/:lname' => sub {
+	my $self = shift;
+	$self->stash(
+		fname => uc $self->param('fname'),
+		lname => uc $self->param('lname')
+	);
+	$self->render('capture');
+};
+
+app->start;
+__DATA__
+@@ hello.html.ep
+Welcome to Mojolicious!!!
+
+@@ capture.html.ep
+Hello <%= $fname %> <%= $lname %>!!
+
+
+
+
+
+
+
+
+
+
+

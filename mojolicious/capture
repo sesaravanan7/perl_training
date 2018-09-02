@@ -1,0 +1,17 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+get '/' => sub { 
+	shift->render('hello'); 
+};
+
+get '/:fname/:lname' => sub {
+	shift->render('capture');
+};
+
+app->start;
+__DATA__
+@@ hello.html.ep
+Welcome to Mojolicious!!!
+
+@@ capture.html.ep
+Hello <%= param('fname') %> <%= param('lname') %>!!
